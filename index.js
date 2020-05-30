@@ -21,4 +21,11 @@ io.on('connection', socket => {
     socket.on('disconnect', reason => {
         console.log(`Disconnect: Socket ${socket.id} has disconnected.\nReason: ${reason}\n`)
     });
+
+    socket.on('clientEmit', data => {
+        console.log(`Message from client: ${data.message}`);
+        io.to(socket.id).emit('serverEmit', {
+            message: 'Hello Client!'
+        });
+    });
 });
