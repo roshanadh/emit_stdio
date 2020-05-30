@@ -23,18 +23,15 @@ io.on('connection', socket => {
         console.log(`Disconnect: Socket ${socket.id} has disconnected.\nReason: ${reason}\n`)
     });
 
-    socket.on('clientEmit', data => {
+    socket.on('buildImage', data => {
         console.log(`Message from client: ${data.message}`);
-        io.to(socket.id).emit('serverEmit', {
-            message: 'Hello Client!'
-        });
+
         // Execute
-        const build = cp.spawn('docker', ['build', '-t', 'img_node', '.'], {
-            stdio: ['pipe', 'pipe', 'pipe']
-        });
+        const build = cp.exec('docker build -t img_node .');
 
         build.stdout.on('data', data => {
-            io.to(socket.id).emit('stdout', data.toString('utf-8'))
-        })
+            io.to(socket.id).emit('stdout', data.toString('utf-8'));
+            console.log(data);
+        });
     });
 });
