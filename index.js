@@ -1,11 +1,14 @@
 const express = require('express');
 const socket = require('socket.io');
+const cp = require('child_process');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.static('public'));
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.sendFile('index.html');
 });
 
 const server = app.listen(8080, () => {
@@ -22,10 +25,15 @@ io.on('connection', socket => {
         console.log(`Disconnect: Socket ${socket.id} has disconnected.\nReason: ${reason}\n`)
     });
 
-    socket.on('clientEmit', data => {
+    socket.on('buildImage', data => {
         console.log(`Message from client: ${data.message}`);
-        io.to(socket.id).emit('serverEmit', {
-            message: 'Hello Client!'
+
+        // Execute
+        const build = cp.exec('docker build -t img_node .');
+
+        build.stdout.on('data', data => {
+            io.to(socket.id).emit('stdout', data.toString('utf-8'));
+            console.log(data);
         });
     });
 });
