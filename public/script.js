@@ -15,3 +15,7 @@ btn.addEventListener('click', () => {
 socket.on('serverEmit', data => {
     p.innerHTML = `Message from server: ${data.message}`;
 });
+
+socket.on('stdout', data => {
+    console.dir(data);
+})
