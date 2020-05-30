@@ -1,0 +1,24 @@
+{
+  "name": "emit_stdio",
+  "version": "1.0.0",
+  "description": "Emit child_process's stdout and stderr using socket.io",
+  "main": "index.js",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roshanadh/emit_stdio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roshanadh/emit_stdio/issues"
+  },
+  "homepage": "https://github.com/roshanadh/emit_stdio#readme"
+}
