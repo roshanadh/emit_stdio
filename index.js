@@ -17,5 +17,8 @@ const io = socket(server);
 // Need to setup socket.io on the client (frontend) as well ...
 // ... for the 'connection' event to fire
 io.on('connection', socket => {
-    console.log(`New socket connection: ${socket.id}`);
+    console.log(`Connect: New socket connection: ${socket.id}`);
+    socket.on('disconnect', reason => {
+        console.log(`Disconnect: Socket ${socket.id} has disconnected.\nReason: ${reason}\n`)
+    });
 });
