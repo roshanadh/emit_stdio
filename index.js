@@ -1,9 +1,11 @@
 const express = require('express');
 const socket = require('socket.io');
 const cp = require('child_process');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.sendFile('index.html');
